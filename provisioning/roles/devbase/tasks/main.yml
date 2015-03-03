@@ -1,0 +1,14 @@
+---
+- name: update all the current apt sources
+  apt: upgrade=dist
+
+- name: make sure essential build tools are in place
+  apt: name="{{ item }}" state=latest
+  with_items:
+    - build-essential
+    - m4
+    - make
+    - git
+    - scons
+
+- include: llvm.yml

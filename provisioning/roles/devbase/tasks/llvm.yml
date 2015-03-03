@@ -1,0 +1,15 @@
+---
+
+- name: copy clang to the sources directory
+  copy: src=etc/apt/sources.list.d/llvm.list
+        dest=/etc/apt/sources.list.d/llvm.list
+        owner=root group=root
+
+- name: Update the cache with the clang
+  apt: update_cache=yes
+
+- name: install clang packages
+  apt: name="{{ item }}" state=latest force=yes
+  with_items:
+    - clang-3.6
+    - clang-format-3.6
